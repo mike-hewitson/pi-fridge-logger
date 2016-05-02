@@ -1,0 +1,19 @@
+{
+  "name": "pi-fridge-logger",
+  "version": "1.0.0",
+  "description": "Log raspebrry pi sebsor data to a rest service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mike-hewitson/pi-fridge-logger.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mike-hewitson/pi-fridge-logger/issues"
+  },
+  "homepage": "https://github.com/mike-hewitson/pi-fridge-logger#readme"
+}
