@@ -1,14 +1,33 @@
+require('dotenv').config();
 var sensorLib = require('node-dht-sensor');
+var winston = require('winston');
+var Papertrail = require('winston-papertrail').Papertrail;
+
+var logger = new winston.Logger({
+    transports: [
+        new winston.transports.Console({
+            json: true,
+            expressFormat: true,
+            colorize: true
+        }),
+        new winston.transports.Papertrail({
+            host: 'logs4.papertrailapp.com',
+            port: 32583, // your port here
+            program: 'rest-server',
+            colorize: true
+        })
+    ]
+});
 
 var sensor = {
-    initialize: function () {
+    initialize: function() {
         return sensorLib.initialize(22, 4);
     },
-    read: function () {
+    read: function() {
         var readout = sensorLib.read();
-        console.log('Temperature: ' + readout.temperature.toFixed(2) + 'C, ' +
+        logger.info('Temperature: ' + readout.temperature.toFixed(2) + 'C, ' +
             'humidity: ' + readout.humidity.toFixed(2) + '%');
-        setTimeout(function () {
+        setTimeout(function() {
             sensor.read();
         }, 2000);
     }
