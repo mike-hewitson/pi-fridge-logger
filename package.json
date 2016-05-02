@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/mike-hewitson/pi-fridge-logger/issues"
   },
-  "homepage": "https://github.com/mike-hewitson/pi-fridge-logger#readme"
+  "homepage": "https://github.com/mike-hewitson/pi-fridge-logger#readme",
+  "dependencies": {
+    "node-dht-sensor": "0.0.11"
+  }
 }
