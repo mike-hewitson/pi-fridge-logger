@@ -56,12 +56,15 @@ var sensor = {
         pin: 24
     }],
     read: function() {
+        var reading = { date: new Date().now(), sensors: []};
         for (var a in this.sensors) {
             var b = sensorLib.readSpec(this.sensors[a].type, this.sensors[a].pin);
+            reading.sensors.push({sensor: this.sensors[a], temp: b.temperature.toFixed(1), hum: b.humidity.toFixed(1)});
             logger.info(this.sensors[a].name + ": " +
                 b.temperature.toFixed(1) + "C, " +
                 b.humidity.toFixed(1) + "%");
         }
+        logger.info(reading);
         setTimeout(function() {
             sensor.read();
         }, 2000);
