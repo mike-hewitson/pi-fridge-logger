@@ -69,6 +69,7 @@ var sensor = {
                 reading.sensors.push({ sensor: this.sensors[a].name, temp: b.temperature.toFixed(1), hum: b.humidity.toFixed(1) });
             }
             logger.info(reading);
+            logger.info(process.env.SERVER + ':' + process.env.PORT + '/readings');
             // setTimeout(function() {
             //     sensor.read();
             // }, 2000);
