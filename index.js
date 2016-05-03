@@ -20,6 +20,8 @@ var logger = new winston.Logger({
     ]
 });
 
+var uri = process.env.SERVER + ':' + process.env.PORT + '/readings';
+
 // var options = {
 //     host: process.env.SERVER + ':' + process.env.PORT + /readings,
 //     path: '/readings',
@@ -49,60 +51,63 @@ var logger = new winston.Logger({
 var sensorLib = require("node-dht-sensor");
 
 var sensor = {
-        sensors: [{
-            name: "Ambient",
-            type: 22,
-            pin: 4
-        }, {
-            name: "Curing",
-            type: 22,
-            pin: 25
-        }, {
-            name: "Fridge",
-            type: 22,
-            pin: 24
-        }],
-        read: function() {
-            var reading = { date: new Date(), sensors: [] };
-            for (var a in this.sensors) {
-                var b = sensorLib.readSpec(this.sensors[a].type, this.sensors[a].pin);
-                reading.sensors.push({ sensor: this.sensors[a].name, temp: b.temperature.toFixed(1), hum: b.humidity.toFixed(1) });
-            }
-            logger.info(reading);
-            logger.info(process.env.SERVER + ':' + process.env.PORT + '/readings');
-            // setTimeout(function() {
-            //     sensor.read();
-            // }, 2000);
+    sensors: [{
+        name: "Ambient",
+        type: 22,
+        pin: 4
+    }, {
+        name: "Curing",
+        type: 22,
+        pin: 25
+    }, {
+        name: "Fridge",
+        type: 22,
+        pin: 24
+    }],
+    read: function() {
+        var reading = { date: new Date(), sensors: [] };
+        for (var a in this.sensors) {
+            var b = sensorLib.readSpec(this.sensors[a].type, this.sensors[a].pin);
+            reading.sensors.push({ sensor: this.sensors[a].name, temp: b.temperature.toFixed(1), hum: b.humidity.toFixed(1) });
+        }
+        logger.info(reading);
+        logger.info(uri);
 
-            request({
-                    method: 'POST',
-                    uri: process.env.SERVER + ':' + process.env.PORT + '/readings',
-                    multipart: [{
-                        'content-type': 'application/json',
-                        body: JSON.stringify(reading)
-                    }]
-                }, function(error, response, body) {
-                    logger.info(error);
-                    logger.info(response);
-                    logger.info(body);
-                    if (response.statusCode == 201) {
-                        logger.info('document saved')
-                        }
-                        else {
-                            logger.error(response.statusCode)
-                            logger.error(body)
-                        }
-                    });
-
-                // http.request(options, function(res) {
-                //     console.log('STATUS: ' + res.statusCode);
-                //     console.log('HEADERS: ' + JSON.stringify(res.headers));
-                //     res.setEncoding('utf8');
-                //     res.on('data', function(chunk) {
-                //         console.log('BODY: ' + chunk);
-                //     });
-                // }).end();
-            }
+        var req = {
+            method: 'POST',
+            uri: uri,
+            multipart: [{
+                'content-type': 'application/json',
+                body: JSON.stringify(reading)
+            }]
         };
+        logger.info(req);
 
-        sensor.read();
+        // setTimeout(function() {
+        //     sensor.read();
+        // }, 2000);
+
+        request(req, function(error, response, body) {
+            logger.info(error);
+            logger.info(response);
+            logger.info(body);
+            if (response.statusCode == 201) {
+                logger.info('document saved')
+            } else {
+                logger.error(response.statusCode)
+                logger.error(body)
+            }
+        });
+
+        // http.request(options, function(res) {
+        //     console.log('STATUS: ' + res.statusCode);
+        //     console.log('HEADERS: ' + JSON.stringify(res.headers));
+        //     res.setEncoding('utf8');
+        //     res.on('data', function(chunk) {
+        //         console.log('BODY: ' + chunk);
+        //     });
+        // }).end();
+    }
+};
+
+sensor.read();
