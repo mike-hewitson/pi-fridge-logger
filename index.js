@@ -68,7 +68,7 @@ var sensor = {
                 var b = sensorLib.readSpec(this.sensors[a].type, this.sensors[a].pin);
                 reading.sensors.push({ sensor: this.sensors[a].name, temp: b.temperature.toFixed(1), hum: b.humidity.toFixed(1) });
             }
-            logger.debug(reading);
+            logger.info(reading);
             // setTimeout(function() {
             //     sensor.read();
             // }, 2000);
@@ -81,9 +81,9 @@ var sensor = {
                         body: JSON.stringify(reading)
                     }]
                 }, function(error, response, body) {
-                    logger.debug(error);
-                    logger.debug(response);
-                    logger.debug(body);
+                    logger.info(error);
+                    logger.info(response);
+                    logger.info(body);
                     if (response.statusCode == 201) {
                         logger.info('document saved')
                         }
