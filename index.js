@@ -81,12 +81,14 @@ var sensor = {
                         body: JSON.stringify(reading)
                     }]
                 }, function(error, response, body) {
+                    logger.info(response);
+                    logger.info(body);
                     if (response.statusCode == 201) {
-                        console.log('document saved')
+                        logger.info('document saved')
                         }
                         else {
-                            console.log('error: ' + response.statusCode)
-                            console.log(body)
+                            logger.error(response.statusCode)
+                            logger.error(body)
                         }
                     });
 
