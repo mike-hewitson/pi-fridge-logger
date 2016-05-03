@@ -20,7 +20,7 @@ var logger = new winston.Logger({
     ]
 });
 
-var uri = process.env.SERVER + ':' + process.env.PORT + '/readings';
+var uri = 'http://' + process.env.SERVER + ':' + process.env.PORT + '/readings';
 
 // var options = {
 //     host: process.env.SERVER + ':' + process.env.PORT + /readings,
