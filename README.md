@@ -16,3 +16,11 @@ Then
 $ npm install 
 
 http://www.airspayce.com/mikem/bcm2835/
+
+Deploy then run npm install
+
+Enviromment in .env (SERVER=, PORT =)
+
+Run via node index.js
+
+Logging to console and papertrail via winston
