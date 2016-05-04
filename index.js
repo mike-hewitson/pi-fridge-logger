@@ -78,7 +78,7 @@ var sensor = {
             uri: uri,
             multipart: [{
                 'content-type': 'application/json',
-                body: reading
+                body: JSON.stringify(reading)
             }]
         };
         // logger.info(req);
