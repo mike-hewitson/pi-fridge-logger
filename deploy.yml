@@ -1,0 +1,18 @@
+---
+- hosts: all
+  remote_user: pi
+  sudo: yes
+
+  tasks:
+    - name: Remove the current deployed webapp
+      file: path=/home/pi/webapp/app state=absent
+
+    - name: Remove the temp directory
+      file: path=/home/pi/tmp state=absent
+
+    - name: Create the empty webapp directory
+      file: path=/home/pi/webapp/app state=directory owner=pi group=pi
+
+    - name: Get github repo
+      git: repo=https://github.com/graeme-lockley/charcuterie-controller.git dest=/home/pi/tmp version=HEAD
+
