@@ -14,13 +14,13 @@ var logger = new winston.Logger({
         new winston.transports.Papertrail({
             host: 'logs4.papertrailapp.com',
             port: 32583, // your port here
-            program: 'rest-server',
+            program: 'pi-logger',
             colorize: true
         })
     ]
 });
 
-var uri = 'http://' + process.env.SERVER + ':' + process.env.PORT + '/readings';
+var url = 'http://' + process.env.SERVER + ':' + process.env.PORT + '/readings';
 
 // var options = {
 //     host: process.env.SERVER + ':' + process.env.PORT + /readings,
@@ -72,16 +72,21 @@ var sensor = {
         }
         logger.info(reading);
         // logger.info(uri);
-
         var req = {
-            method: 'POST',
-            uri: uri,
-            multipart: [{
-                'content-type': 'application/json',
-                body: JSON.stringify(reading)
-            }]
+            url: url,
+            method: "POST",
+            json: true,
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(reading)
         };
-        // logger.info(req);
+        // var req = {
+        //     uri: uri,
+        //     'content-type': 'application/json',
+        //     body: JSON.stringify(reading)
+        // };
+        logger.info(req);
 
         // setTimeout(function() {
         //     sensor.read();
@@ -94,8 +99,9 @@ var sensor = {
             if (response.statusCode == 201) {
                 logger.info('document saved')
             } else {
-                logger.error(response.statusCode)
-                logger.error(body)
+                // logger.error(req);
+                logger.error(response.statusCode);
+                logger.error(body);
             }
         });
 
