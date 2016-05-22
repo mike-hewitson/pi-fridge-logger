@@ -48,7 +48,7 @@ var url = 'http://' + process.env.SERVER + ':' + process.env.PORT + '/readings';
 //     logger.warn('Failed to initialize sensor');
 // }
 
-var sensorLib = require("node-dht-sensor");
+// var sensorLib = require("node-dht-sensor");
 
 var sensor = {
     sensors: [{
@@ -75,11 +75,12 @@ var sensor = {
         var req = {
             url: url,
             method: "POST",
-            json: true,
+            // json: true,
             headers: {
                 "content-type": "application/json",
             },
-            body: JSON.stringify(reading)
+            json: reading
+            // json: { a:"some crap"}
         };
         // var req = {
         //     uri: uri,

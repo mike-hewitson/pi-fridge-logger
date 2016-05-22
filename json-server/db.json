@@ -212,6 +212,73 @@
     },
     {
       "id": "414077ec-e302-463f-a2c8-966fc0498aa9"
+    },
+    {
+      "date": "2016-05-22T14:31:11.285Z",
+      "sensors": [
+        {
+          "sensor": "Ambient",
+          "temp": "19.5",
+          "hum": "40.5"
+        },
+        {
+          "sensor": "Curing",
+          "temp": "3.5",
+          "hum": "42.8"
+        },
+        {
+          "sensor": "Fridge",
+          "temp": "5.2",
+          "hum": "7.9"
+        }
+      ],
+      "id": "22c62e83-8c87-438b-a8fd-676f2b239794"
+    },
+    {
+      "date": "2016-05-22T14:31:11.285Z",
+      "sensors": [
+        {
+          "sensor": "Ambient",
+          "temp": "19.5",
+          "hum": "40.5"
+        },
+        {
+          "sensor": "Curing",
+          "temp": "3.5",
+          "hum": "42.8"
+        },
+        {
+          "sensor": "Fridge",
+          "temp": "5.2",
+          "hum": "7.9"
+        }
+      ],
+      "id": "48db6c82-3de4-413c-afd2-eee407cef6a7"
+    },
+    {
+      "a": "some crap",
+      "id": "b451dc6c-6d19-4807-a1e5-29bffdc4f6f3"
+    },
+    {
+      "date": "2016-05-22T15:03:08.841Z",
+      "sensors": [
+        {
+          "sensor": "Ambient",
+          "temp": "0.0",
+          "hum": "0.0"
+        },
+        {
+          "sensor": "Curing",
+          "temp": "0.0",
+          "hum": "0.0"
+        },
+        {
+          "sensor": "Fridge",
+          "temp": "5.3",
+          "hum": "10.6"
+        }
+      ],
+      "id": "e643823f-2a35-459a-a651-dff19b7def72"
     }
   ],
   "latest": [
