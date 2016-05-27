@@ -70,7 +70,8 @@ var sensor = {
             exclude: 'hourly,daily,flags',
             units: 'si'
         };
-        var forecastIo = new ForecastIo('62888a9ff1907377b60a866701cf3338');
+        // var forecastIo = new ForecastIo('62888a9ff1907377b60a866701cf3338');
+        var forecastIo = new ForecastIo(process.env.API_KEY);
 
         forecastIo.forecast('-26.124', '28.027', options).then(function(data) {
             myLogger.info(data.currently.temperature);
