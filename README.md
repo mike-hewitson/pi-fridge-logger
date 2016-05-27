@@ -21,7 +21,13 @@ http://www.airspayce.com/mikem/bcm2835/
 Deploy then run npm install
 
 Enviromment in .env (SERVER=, PORT =)
-Run via PM2
+Run via PM2 - doesnt seem to work
+Run via forever:
+```
+$ npm install forever -g
+$ forever start index.js
+```
+
 ```
 $ node index.js
 ```
