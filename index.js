@@ -14,7 +14,7 @@ var myLogger = new winston.Logger({
         }),
         new winston.transports.Papertrail({
             host: 'logs4.papertrailapp.com',
-            port: 32583, 
+            port: 32583,
             program: 'pi-logger',
             colorize: true
         })
@@ -45,22 +45,20 @@ var sensor = {
         var forecastIo = new ForecastIo(process.env.API_KEY);
 
         forecastIo.forecast('-26.124', '28.027', options).then(function(data) {
-            myLogger.info(data.currently.temperature);
-            myLogger.info(data.currently.humidity * 100);
             var reading = { date: new Date(), sensors: [] };
 
             reading.sensors.push({ sensor: 'Environment', temp: data.currently.temperature.toFixed(1), hum: (data.currently.humidity * 100).toFixed(1) });
 
             for (var a in sensor.sensors) {
                 var b = sensorLib.readSpec(sensor.sensors[a].type, sensor.sensors[a].pin);
-                if (b.temperature != 0 && b.hum != 0) {
+                if (b.errors == 0) {
                     reading.sensors.push({ sensor: sensor.sensors[a].name, temp: b.temperature.toFixed(1), hum: b.humidity.toFixed(1) });
                 } else {
-                    myLogger.warning('Zero reading', b);
+                    myLogger.warn('Zero reading :' + JSON.stringify(b));
                 }
             }
 
-            myLogger.info(reading);
+            myLogger.debug(reading);
 
             var req = {
                 url: url,
@@ -70,6 +68,7 @@ var sensor = {
                 },
                 json: reading
             };
+
             myLogger.info(req);
 
             request(req, function(error, response, body) {
