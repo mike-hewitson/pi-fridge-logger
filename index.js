@@ -51,7 +51,7 @@ var sensor = {
 
             for (var a in sensor.sensors) {
                 var b = sensorLib.readSpec(sensor.sensors[a].type, sensor.sensors[a].pin);
-                if (b.errors == 0) {
+                if (b.errors === 0) {
                     reading.sensors.push({ sensor: sensor.sensors[a].name, temp: b.temperature.toFixed(1), hum: b.humidity.toFixed(1) });
                 } else {
                     myLogger.warn('Zero reading :' + JSON.stringify(b));
@@ -64,7 +64,7 @@ var sensor = {
                 url: url,
                 method: "POST",
                 headers: {
-                    "content-type": "application/json",
+                    "content-type": "application/json"
                 },
                 json: reading
             };
@@ -72,8 +72,8 @@ var sensor = {
             myLogger.info(req);
 
             request(req, function(error, response, body) {
-                if (response.statusCode == 201) {
-                    myLogger.info('document saved')
+                if (response.statusCode === 201) {
+                    myLogger.info('document saved');
                 } else {
                     myLogger.error(response.statusCode);
                     myLogger.error(body);

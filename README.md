@@ -13,7 +13,7 @@ $ sudo make install
 Then
 
 ```
-$ npm install 
+$ npm install
 ```
 
 http://www.airspayce.com/mikem/bcm2835/
@@ -21,8 +21,7 @@ http://www.airspayce.com/mikem/bcm2835/
 Deploy then run npm install
 
 Enviromment in .env (SERVER=, PORT =)
-
-Run via 
+Run via PM2
 ```
 $ node index.js
 ```
