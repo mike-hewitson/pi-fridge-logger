@@ -279,6 +279,48 @@
         }
       ],
       "id": "e643823f-2a35-459a-a651-dff19b7def72"
+    },
+    {
+      "date": "2016-05-22T15:07:05.946Z",
+      "sensors": [
+        {
+          "sensor": "Ambient",
+          "temp": "19.4",
+          "hum": "42.5"
+        },
+        {
+          "sensor": "Curing",
+          "temp": "3.1",
+          "hum": "45.0"
+        },
+        {
+          "sensor": "Fridge",
+          "temp": "5.2",
+          "hum": "7.0"
+        }
+      ],
+      "id": "8af4a6b5-0365-430e-8ac9-e7fdc0c712f0"
+    },
+    {
+      "date": "2016-05-24T03:04:09.672Z",
+      "sensors": [
+        {
+          "sensor": "Ambient",
+          "temp": "13.7",
+          "hum": "52.2"
+        },
+        {
+          "sensor": "Curing",
+          "temp": "2.8",
+          "hum": "48.4"
+        },
+        {
+          "sensor": "Fridge",
+          "temp": "0.0",
+          "hum": "0.0"
+        }
+      ],
+      "id": "97e8ee5b-30a3-4308-ac60-a93f74caa64c"
     }
   ],
   "latest": [

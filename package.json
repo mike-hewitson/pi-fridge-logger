@@ -18,6 +18,7 @@
   "homepage": "https://github.com/mike-hewitson/pi-fridge-logger#readme",
   "dependencies": {
     "dotenv": "^2.0.0",
+    "forecastio": "^1.0.1",
     "node-dht-sensor": "0.0.11",
     "request": "^2.72.0",
     "winston": "^2.2.0",

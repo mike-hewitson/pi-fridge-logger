@@ -10,7 +10,7 @@ $ make
 $ sudo make check
 $ sudo make install
 
-Then  
+Then
 
 ```
 $ npm install 
@@ -27,3 +27,13 @@ Run via
 $ node index.js
 ```
 Logging to console and papertrail via winston
+
+## Testing
+
+Run json-server on mac.
+Confirm .env points to mac.
+Run via
+```
+$ node index.js
+```
+
