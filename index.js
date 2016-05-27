@@ -14,7 +14,7 @@ var myLogger = new winston.Logger({
         }),
         new winston.transports.Papertrail({
             host: 'logs4.papertrailapp.com',
-            port: 32583, // your port here
+            port: 32583, 
             program: 'pi-logger',
             colorize: true
         })
@@ -22,34 +22,6 @@ var myLogger = new winston.Logger({
 });
 
 var url = 'http://' + process.env.SERVER + ':' + process.env.PORT + '/readings';
-
-// var options = {
-//     host: process.env.SERVER + ':' + process.env.PORT + /readings,
-//     path: '/readings',
-//     method: 'POST'
-// };
-
-// var sensor = {
-//     initialize: function() {
-//         return sensorLib.initialize(22, 4);
-//     },
-//     read: function() {
-//         var readout = sensorLib.read();
-//         logger.info('Temperature: ' + readout.temperature.toFixed(2) + 'C, ' +
-//             'humidity: ' + readout.humidity.toFixed(2) + '%');
-//         setTimeout(function() {
-//             sensor.read();
-//         }, 2000);
-//     }
-// };
-
-// if (sensor.initialize()) {
-//     sensor.read();
-// } else {
-//     logger.warn('Failed to initialize sensor');
-// }
-
-// var sensorLib = require("node-dht-sensor");
 
 var sensor = {
     sensors: [{
@@ -70,13 +42,11 @@ var sensor = {
             exclude: 'hourly,daily,flags',
             units: 'si'
         };
-        // var forecastIo = new ForecastIo('62888a9ff1907377b60a866701cf3338');
         var forecastIo = new ForecastIo(process.env.API_KEY);
 
         forecastIo.forecast('-26.124', '28.027', options).then(function(data) {
             myLogger.info(data.currently.temperature);
             myLogger.info(data.currently.humidity * 100);
-            // myLogger.info(JSON.stringify(environment));
             var reading = { date: new Date(), sensors: [] };
 
             reading.sensors.push({ sensor: 'Environment', temp: data.currently.temperature.toFixed(1), hum: (data.currently.humidity * 100).toFixed(1) });
@@ -91,33 +61,21 @@ var sensor = {
             }
 
             myLogger.info(reading);
-            // myLogger.info(uri);
+
             var req = {
                 url: url,
                 method: "POST",
-                // json: true,
                 headers: {
                     "content-type": "application/json",
                 },
                 json: reading
-                    // json: { a:"some crap"}
             };
-            // var req = {
-            //     uri: uri,
-            //     'content-type': 'application/json',
-            //     body: JSON.stringify(reading)
-            // };
             myLogger.info(req);
 
-
             request(req, function(error, response, body) {
-                // myLogger.info(error);
-                // myLogger.info(response);
-                // myLogger.info(body);
                 if (response.statusCode == 201) {
                     myLogger.info('document saved')
                 } else {
-                    // myLogger.error(req);
                     myLogger.error(response.statusCode);
                     myLogger.error(body);
                 }
@@ -129,14 +87,6 @@ var sensor = {
             sensor.read();
         }, 300000);
 
-        // http.request(options, function(res) {
-        //     console.log('STATUS: ' + res.statusCode);
-        //     console.log('HEADERS: ' + JSON.stringify(res.headers));
-        //     res.setEncoding('utf8');
-        //     res.on('data', function(chunk) {
-        //         console.log('BODY: ' + chunk);
-        //     });
-        // }).end();
     }
 };
 
