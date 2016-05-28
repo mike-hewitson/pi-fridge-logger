@@ -1,3 +1,5 @@
+"use strict"
+
 require('dotenv').config();
 var sensorLib = require('node-dht-sensor');
 var request = require('request');
@@ -49,42 +51,66 @@ var sensor = {
 
             reading.sensors.push({ sensor: 'Environment', temp: data.currently.temperature.toFixed(1), hum: (data.currently.humidity * 100).toFixed(1) });
 
+            var valid_readings = true;
             for (var a in sensor.sensors) {
                 var b = sensorLib.readSpec(sensor.sensors[a].type, sensor.sensors[a].pin);
-                if (b.errors === 0) {
+
+                // repeat sensor reading when the reading failed a limited number of times
+                // var i = 0;
+                // while ((b.temperature === 0 && b.humidity === 0) && i < 4) {
+                //     myLogger.info('in loop');
+                //     b = sensorLib.readSpec(sensor.sensors[a].type, sensor.sensors[a].pin);
+                //     if (b.temperature !== 0 || b.humidity !== 0) {
+                //         myLogger.info('breaking');
+                //         break;
+                //     }
+                //     i++;
+                // }
+
+                if (b.temperature !== 0 && b.humidity !== 0) {
                     reading.sensors.push({ sensor: sensor.sensors[a].name, temp: b.temperature.toFixed(1), hum: b.humidity.toFixed(1) });
                 } else {
-                    myLogger.warn('Zero reading :' + JSON.stringify(b));
+                    valid_readings = false;
+                    myLogger.warn('Zero reading :' + JSON.stringify(sensor.sensors[a]) + ':' + JSON.stringify(b));
                 }
             }
+            if (valid_readings) {
+                myLogger.debug(reading);
 
-            myLogger.debug(reading);
+                var req = {
+                    url: url,
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    json: reading
+                };
 
-            var req = {
-                url: url,
-                method: "POST",
-                headers: {
-                    "content-type": "application/json"
-                },
-                json: reading
-            };
+                myLogger.info(req);
 
-            myLogger.info(req);
+                request(req, function(error, response, body) {
+                    if (response.statusCode === 201) {
+                        myLogger.info('document saved');
+                    } else {
+                        myLogger.error(response.statusCode);
+                        myLogger.error(body);
+                    }
+                });
 
-            request(req, function(error, response, body) {
-                if (response.statusCode === 201) {
-                    myLogger.info('document saved');
-                } else {
-                    myLogger.error(response.statusCode);
-                    myLogger.error(body);
-                }
-            });
+                setTimeout(function() {
+                    sensor.read();
+                }, 10000);
+                // }, 300000);
+            } else {
 
+                myLogger.warn('Zero reading : restarting');
+                setTimeout(function() {
+                    sensor.read();
+                }, 2000);
+            }
         });
 
-        setTimeout(function() {
-            sensor.read();
-        }, 300000);
+
 
     }
 };
