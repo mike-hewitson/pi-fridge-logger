@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 require('dotenv').config();
 var sensorLib = require('node-dht-sensor');
@@ -81,7 +81,7 @@ var sensor = {
                     if (response.statusCode === 201) {
                         myLogger.info('document saved');
                     } else {
-                        // myLogger.error(response.statusCode);
+                        myLogger.error(response.statusCode);
                         myLogger.error(body);
                     }
                 });

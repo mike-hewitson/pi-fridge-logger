@@ -37,3 +37,10 @@ Run via
 $ node index.js
 ```
 
+## Production concerns
+
+### Add PM2 log to papertrail
+
+/root/.pm2/pm2.log into
+/etc/log_files.yml
+
