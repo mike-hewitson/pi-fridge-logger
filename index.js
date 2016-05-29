@@ -55,18 +55,6 @@ var sensor = {
             for (var a in sensor.sensors) {
                 var b = sensorLib.readSpec(sensor.sensors[a].type, sensor.sensors[a].pin);
 
-                // repeat sensor reading when the reading failed a limited number of times
-                // var i = 0;
-                // while ((b.temperature === 0 && b.humidity === 0) && i < 4) {
-                //     myLogger.info('in loop');
-                //     b = sensorLib.readSpec(sensor.sensors[a].type, sensor.sensors[a].pin);
-                //     if (b.temperature !== 0 || b.humidity !== 0) {
-                //         myLogger.info('breaking');
-                //         break;
-                //     }
-                //     i++;
-                // }
-
                 if (b.temperature !== 0 && b.humidity !== 0) {
                     reading.sensors.push({ sensor: sensor.sensors[a].name, temp: b.temperature.toFixed(1), hum: b.humidity.toFixed(1) });
                 } else {
@@ -74,6 +62,7 @@ var sensor = {
                     myLogger.warn('Zero reading :' + JSON.stringify(sensor.sensors[a]) + ':' + JSON.stringify(b));
                 }
             }
+
             if (valid_readings) {
                 myLogger.debug(reading);
 
@@ -92,21 +81,20 @@ var sensor = {
                     if (response.statusCode === 201) {
                         myLogger.info('document saved');
                     } else {
-                        myLogger.error(response.statusCode);
+                        // myLogger.error(response.statusCode);
                         myLogger.error(body);
                     }
                 });
 
                 setTimeout(function() {
                     sensor.read();
-                }, 10000);
-                // }, 300000);
+                }, 300000);
             } else {
 
                 myLogger.warn('Zero reading : restarting');
                 setTimeout(function() {
                     sensor.read();
-                }, 2000);
+                }, 10000);
             }
         });
 
