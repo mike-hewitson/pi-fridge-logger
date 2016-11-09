@@ -24,7 +24,7 @@ Enviromment in .env (SERVER=, PORT =)
 Run via PM2
 
 ```
-$ node index.js
+$ pm2 index.js
 ```
 Logging to console and papertrail via winston
 
@@ -43,4 +43,19 @@ $ node index.js
 
 /root/.pm2/pm2.log into
 /etc/log_files.yml
+
+## Environment Variables
+
+Contained in the .env file
+
+SERVER and PORT to point to the rest server.
+API_KEY is the Forecast.io weather key.
+
+## Testing Framework
+
+The module testing.js is to create test data from a non-pi device. This will simulate the raspberry pi taking readings and posting them to the fridge controller server rest services. Run as below, or using pm2.
+
+```
+$ node testing.js
+```
 
