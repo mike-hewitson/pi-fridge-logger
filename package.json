@@ -20,6 +20,7 @@
     "dotenv": "^2.0.0",
     "forecastio": "^1.0.1",
     "node-dht-sensor": "0.0.11",
+    "pm2": "^3.5.1",
     "request": "^2.72.0",
     "winston": "^2.2.0",
     "winston-papertrail": "^1.0.2"
