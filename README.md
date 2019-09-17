@@ -14,6 +14,7 @@ Then
 
 ```
 $ npm install
+$ npm install pm2
 ```
 
 http://www.airspayce.com/mikem/bcm2835/
