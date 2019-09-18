@@ -22,10 +22,8 @@ var myLogger = new winston.Logger({
     ]
 });
 
-var url = 'http://' + process.env.SERVER + ':' + process.env.PORT + '/readings';
 
-var sensor = {
-    sensors: [{
+var oldSensorArray = [{
         name: "Ambient",
         type: 22,
         pin: 4
@@ -37,6 +35,15 @@ var sensor = {
         name: "Fridge",
         type: 22,
         pin: 24
+    }];
+
+var url = 'http://' + process.env.SERVER + ':' + process.env.PORT + '/readings';
+
+var sensor = {
+    sensors: [{
+        name: "Curing",
+        type: 22,
+        pin: 4
     }],
     read: function() {
         var options = {
