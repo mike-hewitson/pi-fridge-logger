@@ -3,7 +3,6 @@
 require('dotenv').config();
 var sensorLib = require('node-dht-sensor');
 var request = require('request');
-var ForecastIo = require('forecastio');
 var winston = require('winston');
 var Papertrail = require('winston-papertrail').Papertrail;
 
@@ -44,13 +43,8 @@ var sensor = {
             exclude: 'hourly,daily,flags',
             units: 'si'
         };
-        var forecastIo = new ForecastIo(process.env.API_KEY);
 
-        forecastIo.forecast('-26.124', '28.027', options).then(function(data) {
             var reading = { date: new Date(), sensors: [] };
-
-            reading.sensors.push({ sensor: 'Environment', temp: data.currently.temperature.toFixed(1), hum: (data.currently.humidity * 100).toFixed(1) });
-
             var valid_readings = true;
             for (var a in sensor.sensors) {
                 var b = sensorLib.readSpec(sensor.sensors[a].type, sensor.sensors[a].pin);
@@ -96,7 +90,7 @@ var sensor = {
                     sensor.read();
                 }, 10000);
             }
-        });
+        ;
 
 
 
