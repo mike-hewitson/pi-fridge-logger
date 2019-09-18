@@ -89,7 +89,7 @@ var sensor = {
 
             setTimeout(function() {
                 sensor.read();
-            }, 300000);
+            }, 60000);
         } else {
 
             myLogger.warn('Zero reading : restarting');
