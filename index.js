@@ -44,56 +44,52 @@ var sensor = {
             units: 'si'
         };
 
-            var reading = { date: new Date(), sensors: [] };
-            var valid_readings = true;
-            for (var a in sensor.sensors) {
-                var b = sensorLib.readSpec(sensor.sensors[a].type, sensor.sensors[a].pin);
+        var reading = { date: new Date(), sensors: [] };
+        var valid_readings = true;
+        for (var a in sensor.sensors) {
+            var b = sensorLib.readSpec(sensor.sensors[a].type, sensor.sensors[a].pin);
 
-                if (b.temperature !== 0 && b.humidity !== 0) {
-                    reading.sensors.push({ sensor: sensor.sensors[a].name, temp: b.temperature.toFixed(1), hum: b.humidity.toFixed(1) });
-                } else {
-                    valid_readings = false;
-                    myLogger.warn('Zero reading :' + JSON.stringify(sensor.sensors[a]) + ':' + JSON.stringify(b));
-                }
-            }
-
-            if (valid_readings) {
-                myLogger.debug(reading);
-
-                var req = {
-                    url: url,
-                    method: "POST",
-                    headers: {
-                        "content-type": "application/json"
-                    },
-                    json: reading
-                };
-
-                myLogger.info(req);
-
-                request(req, function(error, response, body) {
-                    if (response.statusCode === 201) {
-                        myLogger.info('document saved');
-                    } else {
-                        myLogger.error(response.statusCode);
-                        myLogger.error(body);
-                    }
-                });
-
-                setTimeout(function() {
-                    sensor.read();
-                }, 300000);
+            if (b.temperature !== 0 && b.humidity !== 0) {
+                reading.sensors.push({ sensor: sensor.sensors[a].name, temp: b.temperature.toFixed(1), hum: b.humidity.toFixed(1) });
             } else {
-
-                myLogger.warn('Zero reading : restarting');
-                setTimeout(function() {
-                    sensor.read();
-                }, 10000);
+                valid_readings = false;
+                myLogger.warn('Zero reading :' + JSON.stringify(sensor.sensors[a]) + ':' + JSON.stringify(b));
             }
-        ;
+        }
 
+        if (valid_readings) {
+            myLogger.debug(reading);
 
+            var req = {
+                url: url,
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                json: reading
+            };
 
+            myLogger.info(req);
+
+            request(req, function(error, response, body) {
+                if (response.statusCode === 201) {
+                    myLogger.info('document saved');
+                } else {
+                    myLogger.error(response.statusCode);
+                    myLogger.error(body);
+                }
+            });
+
+            setTimeout(function() {
+                sensor.read();
+            }, 300000);
+        } else {
+
+            myLogger.warn('Zero reading : restarting');
+            setTimeout(function() {
+                sensor.read();
+            }, 10000);
+        };
     }
 };
 
