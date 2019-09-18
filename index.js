@@ -15,8 +15,8 @@ var myLogger = new winston.Logger({
             colorize: true
         }),
         new winston.transports.Papertrail({
-            host: 'logs4.papertrailapp.com',
-            port: 32583,
+            host: 'logs.papertrailapp.com',
+            port: 52747,
             program: 'pi-logger',
             colorize: true
         })
