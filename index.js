@@ -103,7 +103,7 @@ var sensor = {
             myLogger.info(req);
 
             request(req, function(error, response, body) {
-                if (response.statusCode === 201) {
+                if (response.statusCode === 200) {
                     myLogger.info('document saved');
                 } else {
                     myLogger.error(response.statusCode);
