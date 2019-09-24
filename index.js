@@ -87,6 +87,30 @@ var sensor = {
                 }
             });
 
+//           test one with fake data
+            myLogger.debug(reading);
+
+            var url2 = 'https://salty-chamber-04805.herokuapp.com/qcollector.php?s=Curing&t=16&h=10';
+
+            var req = {
+                url: url2,
+                method: "POST",
+//                headers: {
+//                    "content-type": "application/json"
+//                },
+            };
+
+            myLogger.info(req);
+
+            request(req, function(error, response, body) {
+                if (response.statusCode === 201) {
+                    myLogger.info('document saved');
+                } else {
+                    myLogger.error(response.statusCode);
+                    myLogger.error(body);
+                }
+            });
+
             setTimeout(function() {
                 sensor.read();
             }, 60000);
