@@ -65,32 +65,32 @@ var sensor = {
         }
 
         if (valid_readings) {
-            myLogger.debug(reading);
+//            myLogger.debug(reading);
 
-            var req = {
-                url: url,
-                method: "POST",
-                headers: {
-                    "content-type": "application/json"
-                },
-                json: reading
-            };
+//            var req = {
+//                url: url,
+//                method: "POST",
+//                headers: {
+//                    "content-type": "application/json"
+//                },
+//                json: reading
+//            };
 
-            myLogger.info(req);
+//            myLogger.info(req);
 
-            request(req, function(error, response, body) {
-                if (response.statusCode === 201) {
-                    myLogger.info('document saved');
-                } else {
-                    myLogger.error(response.statusCode);
-                    myLogger.error(body);
-                }
-            });
+//            request(req, function(error, response, body) {
+//                if (response.statusCode === 201) {
+//                    myLogger.info('document saved');
+//                } else {
+//                    myLogger.error(response.statusCode);
+//                    myLogger.error(body);
+//                }
+//            });
 
 //           test one with fake data
-            myLogger.debug(reading);
+//            myLogger.debug(reading);
 
-            var url2 = 'https://salty-chamber-04805.herokuapp.com/qcollector.php?s=Curing&t=16&h=10';
+            var url2 = 'https://salty-chamber-04805.herokuapp.com/qcollector.php?s=Curing&t=' + reading.sensors[0].temp + '&h=' + reading.sensors[0].hum;
 
             var req = {
                 url: url2,
