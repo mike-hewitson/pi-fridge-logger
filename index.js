@@ -22,7 +22,7 @@ var myLogger = new winston.Logger({
     ]
 });
 
-
+// Old sensor configuration
 var oldSensorArray = [{
         name: "Ambient",
         type: 22,
@@ -90,7 +90,7 @@ var sensor = {
 //           test one with fake data
 //            myLogger.debug(reading);
 
-            var url2 = 'https://salty-chamber-04805.herokuapp.com/qcollector.php?s=Curing&t=' + reading.sensors[0].temp + '&h=' + reading.sensors[0].hum;
+            var url2 = 'https://' + process.env.SERVER + '/qcollector.php?s=Curing&t=' + reading.sensors[0].temp + '&h=' + reading.sensors[0].hum;
 
             var req = {
                 url: url2,
@@ -100,11 +100,11 @@ var sensor = {
 //                },
             };
 
-            myLogger.info(req);
+            myLogger.debug(req);
 
             request(req, function(error, response, body) {
                 if (response.statusCode === 200) {
-                    myLogger.info('document saved');
+                    myLogger.info('Reading posted:' + sensor.sensors[0].name + ' temp:'  + reading.sensors[0].temp + ' humiduty:' + reading.sensors[0].hum);
                 } else {
                     myLogger.error(response.statusCode);
                     myLogger.error(body);
