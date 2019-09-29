@@ -90,7 +90,7 @@ var sensor = {
 //           test one with fake data
 //            myLogger.debug(reading);
 
-            var url2 = 'https://' + process.env.SERVER + '/qcollector.php?s=Curing&t=' + reading.sensors[0].temp + '&h=' + reading.sensors[0].hum;
+            var url2 = 'https://' + process.env.SERVER + '/collector.php?s=Curing&t=' + reading.sensors[0].temp + '&h=' + reading.sensors[0].hum;
 
             var req = {
                 url: url2,
