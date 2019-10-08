@@ -56,11 +56,13 @@ var sensor = {
         for (var a in sensor.sensors) {
             var b = sensorLib.readSpec(sensor.sensors[a].type, sensor.sensors[a].pin);
 
-            if (b.temperature !== 0 && b.humidity !== 0) {
+            if ((b.temperature !== 0 && b.humidity !== 0) &&
+                (b.temperature > 0 && b.temperature < 40) &&
+                (b.humidity > 50 && b.humidity < 101)) {
                 reading.sensors.push({ sensor: sensor.sensors[a].name, temp: b.temperature.toFixed(1), hum: b.humidity.toFixed(1) });
             } else {
                 valid_readings = false;
-                myLogger.warn('Zero reading :' + JSON.stringify(sensor.sensors[a]) + ':' + JSON.stringify(b));
+                myLogger.warn('Bad reading :' + JSON.stringify(sensor.sensors[a]) + ':' + JSON.stringify(b));
             }
         }
 
@@ -116,7 +118,7 @@ var sensor = {
             }, 60000);
         } else {
 
-            myLogger.warn('Zero reading : restarting');
+            myLogger.warn('Bad reading : restarting');
             setTimeout(function() {
                 sensor.read();
             }, 10000);
