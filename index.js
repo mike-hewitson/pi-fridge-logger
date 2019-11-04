@@ -4,19 +4,12 @@ require('dotenv').config();
 var sensorLib = require('node-dht-sensor');
 var request = require('request');
 var winston = require('winston');
-var Papertrail = require('winston-papertrail').Papertrail;
 
 var myLogger = new winston.Logger({
     transports: [
         new winston.transports.Console({
             json: false,
             expressFormat: true,
-            colorize: true
-        }),
-        new winston.transports.Papertrail({
-            host: 'logs.papertrailapp.com',
-            port: 52747,
-            program: 'pi-logger',
             colorize: true
         })
     ]
