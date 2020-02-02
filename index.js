@@ -108,7 +108,7 @@ var sensor = {
 
             setTimeout(function() {
                 sensor.read();
-            }, 60000);
+            }, 120000);
         } else {
 
             myLogger.warn('Bad reading : restarting');
