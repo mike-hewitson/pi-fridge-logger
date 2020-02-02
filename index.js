@@ -51,7 +51,7 @@ var sensor = {
 
             if ((b.temperature !== 0 && b.humidity !== 0) &&
                 (b.temperature > 0 && b.temperature < 40) &&
-                (b.humidity > 30 && b.humidity < 101)) {
+                (b.humidity > 20 && b.humidity < 101)) {
                 reading.sensors.push({ sensor: sensor.sensors[a].name, temp: b.temperature.toFixed(1), hum: b.humidity.toFixed(1) });
             } else {
                 valid_readings = false;
@@ -108,7 +108,7 @@ var sensor = {
 
             setTimeout(function() {
                 sensor.read();
-            }, 120000);
+            }, 60000);
         } else {
 
             myLogger.warn('Bad reading : restarting');
