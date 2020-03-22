@@ -99,7 +99,7 @@ var sensor = {
 
             request(req, function(error, response, body) {
                 if (response.statusCode === 200) {
-                    myLogger.info('Reading posted:' + sensor.sensors[0].name + ' temp:'  + reading.sensors[0].temp + ' humiduty:' + reading.sensors[0].hum);
+                    myLogger.debug('Reading posted:' + sensor.sensors[0].name + ' temp:'  + reading.sensors[0].temp + ' humiduty:' + reading.sensors[0].hum);
                 } else {
                     myLogger.error(response.statusCode);
                     myLogger.error(body);
